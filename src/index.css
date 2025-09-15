@@ -2,41 +2,71 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Gaming Cafe Design System - Dark/Cyberpunk Theme */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Dark Theme */
+    --background: 220 15% 6%;
+    --foreground: 210 40% 95%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 220 15% 8%;
+    --card-foreground: 210 40% 95%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 220 15% 8%;
+    --popover-foreground: 210 40% 95%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Neon Gaming Colors */
+    --primary: 194 100% 50%;
+    --primary-foreground: 220 15% 6%;
+    --primary-glow: 194 100% 60%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 271 91% 65%;
+    --secondary-foreground: 220 15% 6%;
+    --secondary-glow: 271 91% 75%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 142 76% 56%;
+    --accent-foreground: 220 15% 6%;
+    --accent-glow: 142 76% 66%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 220 15% 15%;
+    --muted-foreground: 210 20% 60%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 220 15% 6%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 15% 20%;
+    --input: 220 15% 15%;
+    --ring: 194 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Gaming-specific Colors */
+    --neon-blue: 194 100% 50%;
+    --neon-purple: 271 91% 65%;
+    --neon-green: 142 76% 56%;
+    --neon-pink: 316 100% 70%;
+    --dark-surface: 220 15% 10%;
+    --darker-surface: 220 15% 4%;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-glow)));
+    --gradient-hero: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--dark-surface)) 50%, hsl(var(--darker-surface)) 100%);
+    --gradient-neon: linear-gradient(90deg, hsl(var(--neon-blue)), hsl(var(--neon-purple)), hsl(var(--neon-pink)));
+    --gradient-card: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--dark-surface)) 100%);
+
+    /* Shadows & Glows */
+    --shadow-neon: 0 0 30px hsl(var(--primary) / 0.3);
+    --shadow-glow: 0 0 50px hsl(var(--primary) / 0.2);
+    --shadow-card: 0 8px 32px hsl(220 15% 2% / 0.4);
+    --shadow-elevated: 0 20px 60px hsl(220 15% 2% / 0.6);
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +130,98 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-['Inter'];
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-['Orbitron'];
+  }
+}
+
+@layer components {
+  /* Gaming Button Variants */
+  .btn-neon {
+    @apply bg-gradient-to-r from-primary to-primary-glow text-primary-foreground;
+    @apply shadow-[0_0_20px_hsl(var(--primary)/0.3)] hover:shadow-[0_0_30px_hsl(var(--primary)/0.5)];
+    @apply border border-primary/30 transition-all duration-300;
+  }
+
+  .btn-secondary-neon {
+    @apply bg-gradient-to-r from-secondary to-secondary-glow text-secondary-foreground;
+    @apply shadow-[0_0_20px_hsl(var(--secondary)/0.3)] hover:shadow-[0_0_30px_hsl(var(--secondary)/0.5)];
+    @apply border border-secondary/30 transition-all duration-300;
+  }
+
+  .btn-ghost-neon {
+    @apply bg-transparent border-2 border-primary text-primary;
+    @apply hover:bg-primary hover:text-primary-foreground;
+    @apply hover:shadow-[0_0_20px_hsl(var(--primary)/0.4)];
+    @apply transition-all duration-300;
+  }
+
+  /* Gaming Card Styles */
+  .card-neon {
+    @apply bg-gradient-to-br from-card to-[hsl(var(--dark-surface))];
+    @apply border border-border/50 rounded-xl;
+    @apply shadow-[0_8px_32px_hsl(220_15%_2%/0.4)];
+    @apply backdrop-blur-sm;
+  }
+
+  .card-hover {
+    @apply hover:shadow-[0_20px_60px_hsl(220_15%_2%/0.6)];
+    @apply hover:border-primary/30 hover:-translate-y-1;
+    @apply transition-all duration-500;
+  }
+
+  /* Text Gradients */
+  .text-gradient-primary {
+    @apply bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent;
+  }
+
+  .text-gradient-secondary {
+    @apply bg-gradient-to-r from-secondary to-secondary-glow bg-clip-text text-transparent;
+  }
+
+  .text-gradient-neon {
+    @apply bg-gradient-to-r from-[hsl(var(--neon-blue))] via-[hsl(var(--neon-purple))] to-[hsl(var(--neon-pink))] bg-clip-text text-transparent;
+  }
+
+  /* Glowing Effects */
+  .glow-primary {
+    @apply shadow-[0_0_30px_hsl(var(--primary)/0.3)];
+  }
+
+  .glow-secondary {
+    @apply shadow-[0_0_30px_hsl(var(--secondary)/0.3)];
+  }
+
+  /* Animation Classes */
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-border-glow {
+    animation: border-glow 2s linear infinite;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 20px hsl(var(--primary) / 0.3); }
+  100% { box-shadow: 0 0 40px hsl(var(--primary) / 0.6); }
+}
+
+@keyframes border-glow {
+  0% { border-color: hsl(var(--primary)); }
+  33% { border-color: hsl(var(--secondary)); }
+  66% { border-color: hsl(var(--accent)); }
+  100% { border-color: hsl(var(--primary)); }
 }
